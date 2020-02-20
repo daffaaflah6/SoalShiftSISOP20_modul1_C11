@@ -1,7 +1,6 @@
 # SoalShiftSISOP20_modul1_C11
 
-Marsha Nabilah Wibowo - 05111840000027
-Muhammmad Daffa' Aflah Syarif - 05111840000030
+Marsha Nabilah Wibowo - 05111840000027 || Muhammmad Daffa' Aflah Syarif - 05111840000030
 
 # #1. Sample-Superstore.tsv --> AWK
 Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal1/soal1.sh)
