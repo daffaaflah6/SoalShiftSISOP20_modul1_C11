@@ -9,4 +9,4 @@ Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_
 Source Code : [soal2a2b.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2a2b.sh), [soal2_enkripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_enkripsi.sh), [soal2_dekripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_dekripsi.sh)
 
 # #3. Cat --> Bash, AWK, Crontab
-Source Code :
+Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh)
