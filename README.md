@@ -2,7 +2,7 @@
 
 Marsha Nabilah Wibowo - 05111840000027 || Muhammmad Daffa' Aflah Syarif - 05111840000030
 
-# #1. Sample-Superstore.tsv --> AWK
+# 1. Sample-Superstore.tsv --> AWK
 Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal1/soal1.sh)
 
 Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapat tapi yang paling minimum.
@@ -62,8 +62,38 @@ echo "--------------------------------"
 Berikut hasil screenshot persoalan ini.
 ![soal1sh](https://user-images.githubusercontent.com/52326074/75002830-53728e00-5498-11ea-99a3-8b9bd8575b9d.jpg)
 
-# #2. Caesar Chiper --> Bash Script
+# 2. Caesar Chiper --> Bash Script
 Source Code : [soal2a2b.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2a2b.sh), [soal2_enkripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_enkripsi.sh), [soal2_dekripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_dekripsi.sh)
 
-# #3. Cat --> Bash, AWK, Crontab
+a. Membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
+besar, huruf kecil, dan angka. 
+```
+password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 28 | head -n 1)
+```
+- Membuat karakter yang dihasilkan hanya huruf besar, huruf kecil, dan angka.
+
+```tr -dc A-Za-z0-9``` 
+
+- Membuat karakter yang dihasilkan hanya sebatas 28 karakter.
+
+```head -c 28 | head -n 1``` 
+
+b. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet.
+```
+while true; do
+   read -r -p "Enter file name: " nama
+   if [[ $nama =~ ^[A-Za-z]+$ ]];then
+      fname="$nama.txt"
+      echo "$password" > "$fname"
+      break
+   else
+      echo "error."
+   fi
+done
+```
+
+- Membuat kondisi agar nama file yang diinput hanya berupa alphabet. Apabila tidak memenuhi akan terjadi peringatan erorr.
+
+
+# 3. Cat --> Bash, AWK, Crontab
 Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh)
