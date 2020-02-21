@@ -15,7 +15,7 @@ $(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sampl
 - `NR > 1` untuk melakukan proses setelah baris 1 karena baris 1 merupakan penamaan kolom
 - `r[$13]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `region`
 - `for(x in r) print x " " r[x] "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -1` untuk mendapatkan hasil urutan teratas
 
 b. Menentukan 2 State dengan Profit minimum berdasarkan hasil 1 a
@@ -27,7 +27,7 @@ awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[
 - `if($13 == "Central")` untuk menentukan kolom `state` berdasarkan `region` yang telah didapat di 1 a
 - `r[$11]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `state`
 - `for(x in s) print s[x] " " x "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -2` untuk mendapatkan hasil 2 urutan teratas
 
 c. Menentukan 10 Product Name dengan Profit minimum berdasarkan hasil 1 b
@@ -39,7 +39,7 @@ awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {
 - `if($11 == "Texas" || $11 == "Illinois")` untuk menentukan kolom `product name` berdasarkan `state` yang telah didapat di 1 b
 - `r[$17]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `product name`
 - `for(x in pn) print pn[x] " " x "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -10` untuk mendapatkan hasil 10 urutan teratas
 
 Jadi dapat disimpulkan bahwa, pada kasus ini hasil masing-masing point mempengaruhi kasus setelahnya. Jadi jika disatukan maka hasilnya dapat dilihat di > Source Code
