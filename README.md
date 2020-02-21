@@ -209,3 +209,20 @@ hour=`echo "$time" | awk -F ':' '{ print $1 }'`
 
 # 3. Cat --> Bash, AWK, Crontab
 Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh)
+
+a. Mencoba membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat" menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" (contoh: pdkt_kusuma_1, pdkt_kusuma_2, pdkt_kusuma_3) serta jangan lupa untuk menyimpan log messages wget kedalam sebuah file "wget.log".
+
+```sh
+for no in {1..28}
+do
+  wget -O "pdkt_kusuma_$no" "https://loremflickr.com/320/240/cat" --append-output wget.log
+done
+```
+- Menggunakan wget untuk download dan diberi nomor dari 1-28 dan juga membuat wget.log menggunakan --append-output.
+
+b. Melakukan penjadwalan download setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
+
+```
+5 6,14,22 * * 1-5,7 /bin/bash /home/bela/modul1/soal3/soal3a.sh
+```
+- Crontab dibuat setiap jam 06.05, 14.05, 22.05 di setiap hari kecuali hari Sabtu.
