@@ -43,7 +43,7 @@ awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {
 - `head -10` untuk mendapatkan hasil 10 urutan teratas
 
 Jadi dapat disimpulkan bahwa, pada kasus ini hasil masing-masing point mempengaruhi kasus setelahnya. Jadi jika disatukan maka hasilnya dapat dilihat di > Source Code
-```
+```sh
 echo "Region dengan Profit minimum : "
 a=$(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -1)
 echo $a
