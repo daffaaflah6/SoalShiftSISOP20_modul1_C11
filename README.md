@@ -8,7 +8,7 @@ Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_
 Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapat tapi yang paling minimum.
 
 a. Menentukan Region dengan Profit minimum
-```
+```sh
 $(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -1
 ```
 - `awk -F ","` untuk mengubah field separator menjadi tanda koma (secara default spasi)
@@ -68,25 +68,25 @@ Source Code : [soal2a2b.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modu
 a. Membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
 besar, huruf kecil, dan angka. 
 
-```
+```sh
 password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 28 | head -n 1)
 ```
 
 - Membuat karakter yang dihasilkan hanya huruf besar, huruf kecil, dan angka.
 
-```
+```sh
 tr -dc A-Za-z0-9
 ``` 
 
 - Membuat karakter yang dihasilkan hanya sebatas 28 karakter.
 
-```
+```sh
 head -c 28 | head -n 1
 ``` 
 
 b. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet.
 
-```
+```sh
 while true; do
    read -r -p "Enter file name: " nama
    if [[ $nama =~ ^[A-Za-z]+$ ]];then
@@ -103,7 +103,7 @@ done
 
 c. Supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan dienkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah.
 
-```
+```sh
 #!/bin/bash
 
 sebelum="${1%.*}"
@@ -126,47 +126,47 @@ mv $sebelum.txt $setelah.txt
 ```
 
 - Menghilangkan kata-kata setelah '.' agar .txt tidak ikut dienkripsi.
-```
+```sh
 sebelum="${1%.*}"
 ```
 
 - Variabel 'hour' digunakan untuk menyimpan jam yang ada saat ini.
-```
+```sh
 hour=`date "+%H"`
 ```
 
 - Variabel 'key1' dan 'key2' berperan sebagai batas atas (b) dan batas bawah (a) pada saat translate.
-```
+```sh
 key1=`expr $hour + 98`
 key2=`expr $hour + 97`
 ```
 
 - Fungsi untuk mengubah ASCII ke value-nya.
-```
+```sh
 chr() {
   printf "\\$(printf '%03o' "$1")"
 }
 ```
 
 - Variabel 'up' dan 'down' untuk menyimpan batas atas dan batas bawah setelah di-shift sesuai jam.
-```
+```sh
 up=`chr $key1`
 down=`chr $key2`
 ```
 
 - Setiap huruf dalam sebelum akan dibaca dan terjadi pergantian huruf sesuai dengan format translate (b-zaB-ZA) yang sudah diganti dengan hasil dari up dan down sesuai dengan format jam. Hasilnya akan disimpan di variabel 'setelah'.
-```
+```sh
 setelah=`printf "$sebelum" | tr b-zaB-ZA $up-za-$down${up^^}-ZA-${down^^}`
 ```
 
 - Mengganti nama file yang disimpan di 'sebelum' menjadi hasil enkripsi yang disimpan di 'setelah'.
-```
+```sh
 mv $sebelum.txt $setelah.txt
 ```
 
 d. Jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.
 
-```
+```sh
 #!/bin/bash
 
 sebelum="${1%.*}"
@@ -193,17 +193,17 @@ mv $sebelum.txt $setelah.txt
 ```
 
 - Variabel 'change' digunakan untuk menyimpan waktu last change pada file untuk mengetahui jam berapa nama file terakhir diganti.
-```
+```sh
 change=`stat --printf="%z" $sebelum.txt
 ```
 
 - Variabel 'time' digunakan untuk mengambil jam dari variabel 'change' karena pada variabel tersebut terdapat informasi yang tidak diperlukan. Di-cut menggunakan awk dengan field separator ' ' dan diprint pada argumen 2.
-```
+```sh
 time=`echo "$change" | awk -F ' ' '{ print $2 }'`
 ```
 
 - Variabel 'hour' digunakan untuk mengambil jamnya saja pada variabel 'time' agar nama file bisa didekripsi.
-```
+```sh
 hour=`echo "$time" | awk -F ':' '{ print $1 }'`
 ```
 
