@@ -125,44 +125,44 @@ setelah=`printf "$sebelum" | tr b-zaB-ZA $up-za-$down${up^^}-ZA-${down^^}`
 mv $sebelum.txt $setelah.txt
 ```
 
+- Menghilangkan kata-kata setelah '.' agar .txt tidak ikut dienkripsi.
 ```
 sebelum="${1%.*}"
 ```
-- Menghilangkan kata-kata setelah '.' agar .txt tidak ikut dienkripsi.
 
+- Variabel 'hour' digunakan untuk menyimpan jam yang ada saat ini.
 ```
 hour=`date "+%H"`
 ```
-- Variabel 'hour' digunakan untuk menyimpan jam yang ada saat ini.
 
+- Variabel 'key1' dan 'key2' berperan sebagai batas atas (b) dan batas bawah (a) pada saat translate.
 ```
 key1=`expr $hour + 98`
 key2=`expr $hour + 97`
 ```
-- Variabel 'key1' dan 'key2' berperan sebagai batas atas (b) dan batas bawah (a) pada saat translate.
 
+- Fungsi untuk mengubah ASCII ke value-nya.
 ```
 chr() {
   printf "\\$(printf '%03o' "$1")"
 }
 ```
-- Fungsi untuk mengubah ASCII ke value-nya.
 
+- Variabel 'up' dan 'down' untuk menyimpan batas atas dan batas bawah setelah di-shift sesuai jam.
 ```
 up=`chr $key1`
 down=`chr $key2`
 ```
-- Variabel 'up' dan 'down' untuk menyimpan batas atas dan batas bawah setelah di-shift sesuai jam.
 
+- Setiap huruf dalam sebelum akan dibaca dan terjadi pergantian huruf sesuai dengan format translate (b-zaB-ZA) yang sudah diganti dengan hasil dari up dan down sesuai dengan format jam. Hasilnya akan disimpan di variabel 'setelah'.
 ```
 setelah=`printf "$sebelum" | tr b-zaB-ZA $up-za-$down${up^^}-ZA-${down^^}`
 ```
-- Setiap huruf dalam sebelum akan dibaca dan terjadi pergantian huruf sesuai dengan format translate (b-zaB-ZA) yang sudah diganti dengan hasil dari up dan down sesuai dengan format jam. Hasilnya akan disimpan di variabel 'setelah'.
 
+- Mengganti nama file yang disimpan di 'sebelum' menjadi hasil enkripsi yang disimpan di 'setelah'.
 ```
 mv $sebelum.txt $setelah.txt
 ```
-- Mengganti nama file yang disimpan di 'sebelum' menjadi hasil enkripsi yang disimpan di 'setelah'.
 
 d. Jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.
 
@@ -192,21 +192,20 @@ setelah=`printf "$sebelum" | tr $up-za-$down${up^^}-ZA-${down^^} b-zaB-ZA`
 mv $sebelum.txt $setelah.txt
 ```
 
+- Variabel 'change' digunakan untuk menyimpan waktu last change pada file untuk mengetahui jam berapa nama file terakhir diganti.
 ```
 change=`stat --printf="%z" $sebelum.txt
 ```
-- Variabel 'change' digunakan untuk menyimpan waktu last change pada file untuk mengetahui jam berapa nama file terakhir diganti.
 
+- Variabel 'time' digunakan untuk mengambil jam dari variabel 'change' karena pada variabel tersebut terdapat informasi yang tidak diperlukan. Di-cut menggunakan awk dengan field separator ' ' dan diprint pada argumen 2.
 ```
 time=`echo "$change" | awk -F ' ' '{ print $2 }'`
 ```
-- Variabel 'time' digunakan untuk mengambil jam dari variabel 'change' karena pada variabel tersebut terdapat informasi yang tidak diperlukan. Di-cut menggunakan awk dengan field separator ' ' dan diprint pada argumen 2.
 
+- Variabel 'hour' digunakan untuk mengambil jamnya saja pada variabel 'time' agar nama file bisa didekripsi.
 ```
 hour=`echo "$time" | awk -F ':' '{ print $1 }'`
 ```
-- Variabel 'hour' digunakan untuk mengambil jamnya saja pada variabel 'time' agar nama file bisa didekripsi.
-
 
 # 3. Cat --> Bash, AWK, Crontab
 Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh)
