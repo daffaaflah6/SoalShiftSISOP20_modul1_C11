@@ -9,18 +9,18 @@ Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapa
 
 a. Menentukan Region dengan Profit minimum
 ```
-$(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -n 1
+$(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -1
 ```
 - `awk -F ","` untuk mengubah field separator menjadi tanda koma (secara default spasi)
 - `NR > 1` untuk melakukan proses setelah baris 1 karena baris 1 merupakan penamaan kolom
 - `r[$13]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `region`
 - `for(x in r) print x " " r[x] "/"` untuk mengeluarkan hasil
 - `sort -g` untuk mengurutkan secara ascending hasil yang didapat
-- `head -n 1` untuk mendapatkan hasil urutan teratas
+- `head -1` untuk mendapatkan hasil urutan teratas
 
 b. Menentukan 2 State dengan Profit minimum berdasarkan hasil 1 a
 ```
-awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -n 2
+awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -2
 ```
 - `awk -F ","` untuk mengubah field separator menjadi tanda koma (secara default spasi)
 - `NR > 1` untuk melakukan proses setelah baris 1 karena baris 1 merupakan penamaan kolom
@@ -28,11 +28,11 @@ awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[
 - `r[$11]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `state`
 - `for(x in s) print s[x] " " x "/"` untuk mengeluarkan hasil
 - `sort -g` untuk mengurutkan secara ascending hasil yang didapat
-- `head -n 2` untuk mendapatkan hasil 2 urutan teratas
+- `head -2` untuk mendapatkan hasil 2 urutan teratas
 
 c. Menentukan 10 Product Name dengan Profit minimum berdasarkan hasil 1 b
 ```
-awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {for(x in pn) print pn[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -n 10
+awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {for(x in pn) print pn[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -10
 ```
 - `awk -F ","` untuk mengubah field separator menjadi tanda koma (secara default spasi)
 - `NR > 1` untuk melakukan proses setelah baris 1 karena baris 1 merupakan penamaan kolom
@@ -40,22 +40,22 @@ awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {
 - `r[$17]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `product name`
 - `for(x in pn) print pn[x] " " x "/"` untuk mengeluarkan hasil
 - `sort -g` untuk mengurutkan secara ascending hasil yang didapat
-- `head -n 10` untuk mendapatkan hasil 10 urutan teratas
+- `head -10` untuk mendapatkan hasil 10 urutan teratas
 
 Jadi dapat disimpulkan bahwa, pada kasus ini hasil masing-masing point mempengaruhi kasus setelahnya. Jadi jika disatukan maka hasilnya dapat dilihat di > Source Code
 ```
 echo "Region dengan Profit minimum : "
-a=$(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -n 1)
+a=$(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -1)
 echo $a
 echo "--------------------------------"
 echo "	"
 echo "State dengan Profit minimum : "
-b=$(awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -n 2)
+b=$(awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -2)
 echo $b
 echo "--------------------------------"
 echo "	"
 echo "Produk dengan Profit minimum : "
-c=$(awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {for(x in pn) print pn[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -n 10)
+c=$(awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {for(x in pn) print pn[x] " " x "/"}' Sample-Superstore.tsv | sort -g | head -10)
 echo $c
 echo "--------------------------------"
 ```
