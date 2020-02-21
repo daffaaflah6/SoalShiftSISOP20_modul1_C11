@@ -60,6 +60,7 @@ echo $c
 echo "--------------------------------"
 ```
 Berikut hasil screenshot persoalan ini.
+![soal1sh](https://user-images.githubusercontent.com/52326074/75002830-53728e00-5498-11ea-99a3-8b9bd8575b9d.jpg)
 
 # #2. Caesar Chiper --> Bash Script
 Source Code : [soal2a2b.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2a2b.sh), [soal2_enkripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_enkripsi.sh), [soal2_dekripsi.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal2/soal2_dekripsi.sh)
