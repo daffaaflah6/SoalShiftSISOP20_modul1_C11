@@ -223,6 +223,6 @@ done
 b. Melakukan penjadwalan download setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
 
 ```
-5 6,14,22 * * 1-5,7 /bin/bash /home/bela/modul1/soal3/soal3a.sh
+5 6-23/8 * * 0-5 /bin/bash /home/bela/modul1/soal3/soal3a.sh
 ```
-- Crontab dibuat setiap jam 06.05, 14.05, 22.05 di setiap hari kecuali hari Sabtu.
+- Crontab dibuat setiap 8 jam di mulai dari jam 06.05 di setiap hari kecuali hari Sabtu.
