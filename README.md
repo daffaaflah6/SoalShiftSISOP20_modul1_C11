@@ -5,7 +5,8 @@ Marsha Nabilah Wibowo - 05111840000027 || Muhammmad Daffa' Aflah Syarif - 051118
 # #1. Sample-Superstore.tsv --> AWK
 Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal1/soal1.sh)
 
-Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapat tapi yang paling minimum. Penjelasan masing-masing soal :
+Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapat tapi yang paling minimum.
+
 a. Menentukan Region dengan Profit minimum
 ```
 $(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -n 1
