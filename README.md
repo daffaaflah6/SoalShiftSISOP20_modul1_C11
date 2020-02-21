@@ -67,18 +67,25 @@ Source Code : [soal2a2b.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modu
 
 a. Membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
 besar, huruf kecil, dan angka. 
+
 ```
 password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 28 | head -n 1)
 ```
+
 - Membuat karakter yang dihasilkan hanya huruf besar, huruf kecil, dan angka.
 
-```tr -dc A-Za-z0-9``` 
+```
+tr -dc A-Za-z0-9
+``` 
 
 - Membuat karakter yang dihasilkan hanya sebatas 28 karakter.
 
-```head -c 28 | head -n 1``` 
+```
+head -c 28 | head -n 1
+``` 
 
 b. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet.
+
 ```
 while true; do
    read -r -p "Enter file name: " nama
@@ -93,6 +100,112 @@ done
 ```
 
 - Membuat kondisi agar nama file yang diinput hanya berupa alphabet. Apabila tidak memenuhi akan terjadi peringatan erorr.
+
+c. Supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan dienkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah.
+
+```
+#!/bin/bash
+
+sebelum="${1%.*}"
+
+hour=`date "+%H"`
+
+key1=`expr $hour + 98`
+key2=`expr $hour + 97`
+
+chr() {
+  printf "\\$(printf '%03o' "$1")"
+}
+
+up=`chr $key1`
+down=`chr $key2`
+
+setelah=`printf "$sebelum" | tr b-zaB-ZA $up-za-$down${up^^}-ZA-${down^^}`
+
+mv $sebelum.txt $setelah.txt
+```
+
+```
+sebelum="${1%.*}"
+```
+- Menghilangkan kata-kata setelah '.' agar .txt tidak ikut dienkripsi.
+
+```
+hour=`date "+%H"`
+```
+- Variabel 'hour' digunakan untuk menyimpan jam yang ada saat ini.
+
+```
+key1=`expr $hour + 98`
+key2=`expr $hour + 97`
+```
+- Variabel 'key1' dan 'key2' berperan sebagai batas atas (b) dan batas bawah (a) pada saat translate.
+
+```
+chr() {
+  printf "\\$(printf '%03o' "$1")"
+}
+```
+- Fungsi untuk mengubah ASCII ke value-nya.
+
+```
+up=`chr $key1`
+down=`chr $key2`
+```
+- Variabel 'up' dan 'down' untuk menyimpan batas atas dan batas bawah setelah di-shift sesuai jam.
+
+```
+setelah=`printf "$sebelum" | tr b-zaB-ZA $up-za-$down${up^^}-ZA-${down^^}`
+```
+- Setiap huruf dalam sebelum akan dibaca dan terjadi pergantian huruf sesuai dengan format translate (b-zaB-ZA) yang sudah diganti dengan hasil dari up dan down sesuai dengan format jam. Hasilnya akan disimpan di variabel 'setelah'.
+
+```
+mv $sebelum.txt $setelah.txt
+```
+- Mengganti nama file yang disimpan di 'sebelum' menjadi hasil enkripsi yang disimpan di 'setelah'.
+
+d. Jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali.
+
+```
+#!/bin/bash
+
+sebelum="${1%.*}"
+
+change=`stat --printf="%z" $sebelum.txt`
+
+time=`echo "$change" | awk -F ' ' '{ print $2 }'`
+
+hour=`echo "$time" | awk -F ':' '{ print $1 }'`
+
+key1=`expr $hour + 98`
+key2=`expr $hour + 97`
+
+chr() {
+  printf "\\$(printf '%03o' "$1")"
+}
+
+up=`chr $key1`
+down=`chr $key2`
+
+setelah=`printf "$sebelum" | tr $up-za-$down${up^^}-ZA-${down^^} b-zaB-ZA`
+
+mv $sebelum.txt $setelah.txt
+```
+
+```
+change=`stat --printf="%z" $sebelum.txt
+```
+- Variabel 'change' digunakan untuk menyimpan waktu last change pada file untuk mengetahui jam berapa nama file terakhir diganti.
+
+```
+time=`echo "$change" | awk -F ' ' '{ print $2 }'`
+```
+- Variabel 'time' digunakan untuk mengambil jam dari variabel 'change' karena pada variabel tersebut terdapat informasi yang tidak diperlukan. Di-cut menggunakan awk dengan field separator ' ' dan diprint pada argumen 2.
+
+```
+hour=`echo "$time" | awk -F ':' '{ print $1 }'`
+```
+- Variabel 'hour' digunakan untuk mengambil jamnya saja pada variabel 'time' agar nama file bisa didekripsi.
 
 
 # 3. Cat --> Bash, AWK, Crontab
