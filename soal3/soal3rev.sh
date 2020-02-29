@@ -24,15 +24,15 @@ do
 	do
 		if diff -s "pdkt_kusuma_$x" "pdkt_kusuma_$y"
 		then 
-			mv pdkt_kusuma_$y ./duplicate/duplicate_$d
-			d=$(($d+1))
+			mv pdkt_kusuma_$y ./duplicate/duplicate_$z
+			z=$(($z+1))
 		fi
 	done
 done
 
 for no in {1..28}
 do
-	mv pdkt_kusuma_$no ./kenangan/kenangan_$k
+	mv pdkt_kusuma_$no ./kenangan/kenangan_$w
 	w=$(($w+1))
 done
 
