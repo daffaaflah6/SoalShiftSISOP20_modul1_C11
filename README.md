@@ -15,7 +15,7 @@ $(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sampl
 - `NR > 1` untuk melakukan proses setelah baris 1 karena baris 1 merupakan penamaan kolom
 - `r[$13]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `region`
 - `for(x in r) print x " " r[x] "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -1` untuk mendapatkan hasil urutan teratas
 
 b. Menentukan 2 State dengan Profit minimum berdasarkan hasil 1 a
@@ -27,7 +27,7 @@ awk -F "," 'NR > 1 {if($13 == "Central"){s[$11]+=$21}} END {for(x in s) print s[
 - `if($13 == "Central")` untuk menentukan kolom `state` berdasarkan `region` yang telah didapat di 1 a
 - `r[$11]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `state`
 - `for(x in s) print s[x] " " x "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -2` untuk mendapatkan hasil 2 urutan teratas
 
 c. Menentukan 10 Product Name dengan Profit minimum berdasarkan hasil 1 b
@@ -39,7 +39,7 @@ awk -F "," 'NR > 1 {if($11 == "Texas" || $11 == "Illinois"){pn[$17]+=$21}} END {
 - `if($11 == "Texas" || $11 == "Illinois")` untuk menentukan kolom `product name` berdasarkan `state` yang telah didapat di 1 b
 - `r[$17]+=$21` untuk menjumlahkan nilai profit berdasarkan kolom `product name`
 - `for(x in pn) print pn[x] " " x "/"` untuk mengeluarkan hasil
-- `sort -g` untuk mengurutkan secara ascending hasil yang didapat
+- `sort -g` untuk mengurutkan secara generic numeric value (minimum value) hasil yang didapat
 - `head -10` untuk mendapatkan hasil 10 urutan teratas
 
 Jadi dapat disimpulkan bahwa, pada kasus ini hasil masing-masing point mempengaruhi kasus setelahnya. Jadi jika disatukan maka hasilnya dapat dilihat di > Source Code
@@ -208,7 +208,8 @@ hour=`echo "$time" | awk -F ':' '{ print $1 }'`
 ```
 
 # 3. Cat --> Bash, AWK, Crontab
-Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh)
+Source Code : [soal3a.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/soal3a.sh),
+[crontab3.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_C11/blob/master/soal3/crontab3.sh)
 
 a. Mencoba membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat" menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" (contoh: pdkt_kusuma_1, pdkt_kusuma_2, pdkt_kusuma_3) serta jangan lupa untuk menyimpan log messages wget kedalam sebuah file "wget.log".
 
@@ -223,6 +224,6 @@ done
 b. Melakukan penjadwalan download setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
 
 ```
-5 6,14,22 * * 1-5,7 /bin/bash /home/bela/modul1/soal3/soal3a.sh
+5 6-23/8 * * 0-5 /bin/bash /home/bela/modul1/soal3/soal3a.sh
 ```
-- Crontab dibuat setiap jam 06.05, 14.05, 22.05 di setiap hari kecuali hari Sabtu.
+- Crontab dibuat setiap 8 jam di mulai dari jam 06.05 di setiap hari kecuali hari Sabtu.
