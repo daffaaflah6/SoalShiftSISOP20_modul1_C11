@@ -285,8 +285,8 @@ z=$(($z+1))
 
 cd ..
 cd kenangan
-y=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
-y=$(($y+1))
+w=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+w=$(($w+1))
 cd ..
 ```
 - Menyimpan sampai di nomor berapa foto-foto yang ada di folder kenangan dan duplicate.
@@ -309,7 +309,7 @@ done
 ```sh
 for no in {1..28}
 do
-	mv pdkt_kusuma_$no ./kenangan/kenangan_$k
+	mv pdkt_kusuma_$no ./kenangan/kenangan_$w
 	w=$(($w+1))
 done
 ```
