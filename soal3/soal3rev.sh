@@ -9,13 +9,13 @@ mkdir duplicate
 mkdir kenangan
 
 cd duplicate
-d=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
-d=$(($d+1))
+z=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+z=$(($z+1))
 
 cd ..
 cd kenangan
-k=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
-k=$(($k+1))
+w=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+w=$(($w+1))
 cd ..
 
 for ((x=1;x<=28;x=x+1))
@@ -33,7 +33,8 @@ done
 for no in {1..28}
 do
 	mv pdkt_kusuma_$no ./kenangan/kenangan_$k
-	k=$(($k+1))
+	w=$(($w+1))
 done
+
 cat wget.log > wget.log.bak
 cat location.log > location.log.bak

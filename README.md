@@ -227,3 +227,96 @@ b. Melakukan penjadwalan download setiap 8 jam dimulai dari jam 6.05 setiap hari
 5 6-23/8 * * 0-5 /bin/bash /home/bela/modul1/soal3/soal3a.sh
 ```
 - Crontab dibuat setiap 8 jam di mulai dari jam 06.05 di setiap hari kecuali hari Sabtu.
+
+c. Membuat sebuah script untuk mengidentifikasi gambar yang identik dari keseluruhan gambar yang terdownload tadi. Bila terindikasi sebagai gambar yang identik, maka sisakan 1 gambar dan pindahkan sisa file identik tersebut ke dalam folder ./duplicate dengan format filename "duplicate_nomor". Setelah tidak ada gambar di current directory, maka lakukan backup seluruh log menjadi ekstensi ".log.bak".
+
+```sh
+grep 'Location' wget.log >> location.log
+
+mkdir duplicate
+mkdir kenangan
+
+cd duplicate
+d=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+d=$(($d+1))
+
+cd ..
+cd kenangan
+k=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+k=$(($k+1))
+cd ..
+
+for ((x=1;x<=28;x=x+1))
+do
+	for ((y=$x+1;y<=28;y=y+1))
+	do
+		if diff -s "pdkt_kusuma_$x" "pdkt_kusuma_$y"
+		then 
+			mv pdkt_kusuma_$y ./duplicate/duplicate_$d
+			d=$(($d+1))
+		fi
+	done
+done
+
+for no in {1..28}
+do
+	mv pdkt_kusuma_$no ./kenangan/kenangan_$k
+	k=$(($k+1))
+done
+cat wget.log > wget.log.bak
+cat location.log > location.log.bak
+```
+
+```sh
+grep 'Location' wget.log >> location.log
+```
+- Mengambil location yang ada di wget.log dan memasukkannya ke file location.log.
+
+```sh
+mkdir duplicate
+mkdir kenangan
+```
+- Membuat direktori baru untuk menempatkan foto-foto yang sudah disortir.
+
+```sh
+cd duplicate
+z=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+z=$(($z+1))
+
+cd ..
+cd kenangan
+y=$(ls | grep -o '[0-9]*' | sort -nr | head -n 1)
+y=$(($y+1))
+cd ..
+```
+- Menyimpan sampai di nomor berapa foto-foto yang ada di folder kenangan dan duplicate.
+
+```sh
+for ((x=1;x<=28;x=x+1))
+do
+	for ((y=$x+1;y<=28;y=y+1))
+	do
+		if diff -s "pdkt_kusuma_$x" "pdkt_kusuma_$y"
+		then 
+			mv pdkt_kusuma_$y ./duplicate/duplicate_$z
+			z=$(($z+1))
+		fi
+	done
+done
+```
+- Membandingkan foto-foto yang sudah terdownload apakah ada yang dobel atau tidak dan memindahkannya ke direktori duplicate. Membandingkan menggunakan ```diff -s```.
+
+```sh
+for no in {1..28}
+do
+	mv pdkt_kusuma_$no ./kenangan/kenangan_$k
+	w=$(($w+1))
+done
+```
+- Memindahkan semua foto ke direktori kenangan.
+
+```sh
+cat wget.log > wget.log.bak
+cat location.log > location.log.bak
+```
+- Membuat backup file log dengan ekstensi .log.bak
