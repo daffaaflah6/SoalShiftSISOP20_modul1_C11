@@ -8,7 +8,7 @@ Source Code : [soal1.sh](https://github.com/daffaaflah6/SoalShiftSISOP20_modul1_
 Dalam persoalan ini diminta untuk menentukan sesuatu terhadap profit yang didapat tapi yang paling minimum.
 
 a. Menentukan Region dengan Profit minimum
-```sh
+```
 $(awk -F "," 'NR > 1 {r[$13]+=$21} END {for(x in r) print x " " r[x] "/"}' Sample-Superstore.tsv | sort -g | head -1
 ```
 - `awk -F ","` untuk mengubah field separator menjadi tanda koma (secara default spasi)
